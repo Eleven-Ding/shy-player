@@ -1,0 +1,5 @@
+{
+    "compilerOptions": {
+        "allowJS": true, // 允许编译器编译JS，JSX文件  
+    }
+}
