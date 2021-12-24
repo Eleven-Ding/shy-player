@@ -1,12 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
+import './index.less'
 import ProgressBar from './ProgressBar';
 export default memo(function ShyPlayer() {
-  const handleProgressChange = useCallback(function () {
-
-  }, [])
   return (
-    <div>
-      <ProgressBar handleProgressChange={handleProgressChange}> </ProgressBar>
+    <div className="shy-player">
+      <ProgressBar > </ProgressBar>
       <h1>ShyPlayer</h1>
     </div>
   )
