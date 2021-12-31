@@ -1,7 +1,7 @@
 /**
  * 进度条组件
  */
-import { memo, useState, useRef,useEffect } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { defualtState } from '../types/index'
 import './index.less'

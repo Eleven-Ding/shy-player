@@ -1,8 +1,14 @@
 import { memo } from 'react';
-export default memo(function OperationBar(){
+import ShyVoice from './cpns/voice'
+import ShySongList from './cpns/songlist'
+import ShyLoop from './cpns/loop'
+import './index.less'
+export default memo(function OperationBar() {
   return (
-      <div>
-          <h1>OperationBar</h1>
-      </div>
+    <div className='shy-operation-bar'>
+      <ShyVoice></ShyVoice>
+      <ShyLoop></ShyLoop>
+      <ShySongList></ShySongList>
+    </div>
   )
 })

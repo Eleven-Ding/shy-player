@@ -1,8 +1,16 @@
 import { memo } from 'react';
-export default memo(function SongInfo(){
+export interface SongInfoProps {
+  //歌曲名字
+  songName: string;
+  //歌手
+  singer: string;
+}
+export default memo(function SongInfo({ songName, singer }: SongInfoProps) {
   return (
-      <div>
-          <h1>SongInfo</h1>
-      </div>
+    <div>
+      <span className='iconfont icon-pause-circle-full'></span>
+      <span className='iconfont icon-zanting'></span>
+      {songName} - {singer}
+    </div>
   )
 })

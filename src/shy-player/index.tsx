@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import './iconfont/index.less'
 import './index.less'
 import ProgressBar from './ProgressBar';
 import SongInfo from './SongInfo';
@@ -10,7 +11,7 @@ export default memo(function ShyPlayer() {
       <div className="player-left">
       </div>
       <div className="player-right">
-        <SongInfo></SongInfo>
+        <SongInfo songName="Burning" singer="Various Artists"></SongInfo>
         <LyricsDisplay></LyricsDisplay>
         <ProgressBar> </ProgressBar>
         <OperationBar></OperationBar>

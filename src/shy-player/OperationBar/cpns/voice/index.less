@@ -1,0 +1,40 @@
+.shy-voice {
+    position: relative;
+
+    .shy-volume-bar {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 130%;
+        left: 50%;
+        width: 30px;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        .shy-volume {
+            background-color: rebeccapurple;
+            width: 6px;
+            border-radius: 5px;
+            height: 100%;
+
+        }
+    }
+
+    &:hover>.shy-volume-bar {
+        height: 50px;
+        animation: showVolume .1s linear;
+
+    }
+}
+
+@keyframes showVolume {
+    from {
+        height: 0px;
+    }
+
+    to {
+        height: 50px;
+    }
+}
