@@ -1,36 +1,51 @@
-import { memo, useState, useRef } from 'react';
+/**
+ * 进度条组件
+ */
+import { memo, useState, useRef,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { defualtState } from '../types/index'
 import './index.less'
 export interface ProgressBarProps {
-
+    //当前播放到的时间
+    //总的时间
+    //已经加载了多少的时间
 }
 export default memo(function ProgeressBar(props: ProgressBarProps) {
     const [playedWidth, setPlayedWidth] = useState<number>(0)
-    const { currentTiem, totalTime } = useSelector(state => ({
-        currentTiem: (state as defualtState).currentTime,
-        totalTime: (state as defualtState).totalTime
-    }))
+    // const { currentTiem, totalTime } = useSelector(state => ({
+    //     currentTiem: (state as defualtState).currentTime,
+    //     totalTime: (state as defualtState).totalTime
+    // }))
     const progressRef = useRef()
-    const handleProgressBarClick = (event) => {
-        //将这个X传出去，然后触发事件去修改currentTime
-    }
     const handleProgressBarMouseDown = (event) => {
-        const startX = event.nativeEvent.offsetX;
-        setPlayedWidth(startX)
-        window.onmousemove = function (event) {
-            const moveEvent = event || window.event as MouseEvent
-            const movingX = moveEvent.offsetX;
-            setPlayedWidth(playedWidth + movingX - startX)
-
+        let target = event.target
+        let startX = event.clientX
+        setPlayedWidth(_ => event.nativeEvent.offsetX)
+        function mouseMove(event) {
+            //滑动过程中，鼠标到左边屏幕的距离
+            const slideX = event.clientX;
+            if (target.className !== 'progress-bar-wrap') {
+                target = target.parentNode
+            }
+            //滚动组件距离屏幕的的位置
+            const progressLeft = target.offsetLeft;
+            const progressRight = progressLeft + target.offsetWidth
+            //只有在滑动条内 才可以进行滑动，超出不做任何处理
+            if (slideX <= progressRight && slideX >= progressLeft) {
+                setPlayedWidth(playedWidth => {
+                    return slideX - startX + playedWidth
+                })
+                startX = slideX
+            }
         }
+        window.addEventListener("mousemove", mouseMove)
+        window.addEventListener("mouseup", function () {
+            window.removeEventListener("mousemove", mouseMove)
+        })
     }
-    const handleProgressBarMouseUP = (event) => {
-        // const endX = event.nativeEvent.offsetX;
-        window.onmousemove = null
-    }
+
     return (
-        <div id="test" ref={progressRef} className="progress-bar-wrap" onClick={handleProgressBarClick} onMouseUp={handleProgressBarMouseUP} onMouseDown={handleProgressBarMouseDown}>
+        <div id="test" ref={progressRef} className="progress-bar-wrap" onMouseDown={handleProgressBarMouseDown}>
             <div className="progress-bar" >
                 {/* 已经播放的部分 */}
                 <div style={{ width: playedWidth + 'px' }} className="progress-played"></div>

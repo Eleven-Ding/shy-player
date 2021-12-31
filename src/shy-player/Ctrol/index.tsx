@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import './index.less'
 export default memo(function ProgeressBar() {
     return (
         <div>
