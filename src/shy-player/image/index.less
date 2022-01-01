@@ -1,0 +1,42 @@
+.shy-image {
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    span {
+        font-size: 22px;
+        color: #55b59a;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: all .1s linear;
+
+    }
+
+    .icon-pause-circle-full {
+        transition: all .2s linear;
+        animation: circleLoop linear 4s infinite;
+        left: 75%;
+        top: 75%;
+    }
+}
+
+@keyframes circleLoop {
+    0% {
+        transform: rotateZ(0);
+    }
+
+    100% {
+        transform: rotateZ(360deg)
+    }
+
+    0% {
+        transform: rotateZ(0);
+    }
+}

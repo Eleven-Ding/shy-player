@@ -63,7 +63,7 @@ export default memo(function ShyVoice() {
                 {!silent && <span className='iconfont icon-shengyin' onClick={changeSilent}></span>}
             </div>
             {/* 声柱 */}
-            <div className="shy-volume-bar" onMouseDown={handleVolueBarClick}>
+            <div className="shy-volume-bar" onClick={handleVolueBarClick}>
                 {/* 背景 */}
                 <div className="shy-volume">
                     {/* 真实声音*/}

@@ -8,8 +8,6 @@ export interface SongInfoProps {
 export default memo(function SongInfo({ songName, singer }: SongInfoProps) {
   return (
     <div>
-      <span className='iconfont icon-pause-circle-full'></span>
-      <span className='iconfont icon-zanting'></span>
       {songName} - {singer}
     </div>
   )
