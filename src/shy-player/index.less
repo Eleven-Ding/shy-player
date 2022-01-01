@@ -1,5 +1,26 @@
-.shy-player{
+.shy-player {
     width: 100%;
     display: flex;
     justify-content: center;
+    border:1px solid #ccc;
+    width: 100%;
+    justify-content: space-between;
+    box-shadow: 0 2px 2px #ccc;
+    .shy-left {
+        width: 100px;
+    }
+
+    .player-right {
+        padding: 0 0px 0 10px;
+        flex: 1 ;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: space-between;
+        .shy-ops {
+            display: flex;
+
+            align-items: center;
+        }
+    }
 }

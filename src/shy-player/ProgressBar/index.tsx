@@ -11,7 +11,7 @@ export interface ProgressBarProps {
     //已经加载了多少的时间
 }
 export default memo(function ProgeressBar(props: ProgressBarProps) {
-    const [playedWidth, setPlayedWidth] = useState<number>(0)
+    const [playedWidth, setPlayedWidth] = useState<string>('0%')
     // const { currentTiem, totalTime } = useSelector(state => ({
     //     currentTiem: (state as defualtState).currentTime,
     //     totalTime: (state as defualtState).totalTime
@@ -20,20 +20,24 @@ export default memo(function ProgeressBar(props: ProgressBarProps) {
     const handleProgressBarMouseDown = (event) => {
         let target = event.target
         let startX = event.clientX
-        setPlayedWidth(_ => event.nativeEvent.offsetX)
+        if (target.className !== 'progress-bar-wrap') {
+            target = target.parentNode
+        }
+        const barWidth = target.clientWidth
+        //使用百分比
+        setPlayedWidth(_ => {
+            return event.nativeEvent.offsetX / barWidth * 100 + '%'
+        })
         function mouseMove(event) {
             //滑动过程中，鼠标到左边屏幕的距离
             const slideX = event.clientX;
-            if (target.className !== 'progress-bar-wrap') {
-                target = target.parentNode
-            }
             //滚动组件距离屏幕的的位置
             const progressLeft = target.offsetLeft;
             const progressRight = progressLeft + target.offsetWidth
             //只有在滑动条内 才可以进行滑动，超出不做任何处理
             if (slideX <= progressRight && slideX >= progressLeft) {
                 setPlayedWidth(playedWidth => {
-                    return slideX - startX + playedWidth
+                    return (slideX - startX + barWidth / 100 * Number(((playedWidth.slice(0, playedWidth.length - 1))))) / barWidth * 100 + '%'
                 })
                 startX = slideX
             }
@@ -48,7 +52,7 @@ export default memo(function ProgeressBar(props: ProgressBarProps) {
         <div id="test" ref={progressRef} className="progress-bar-wrap" onMouseDown={handleProgressBarMouseDown}>
             <div className="progress-bar" >
                 {/* 已经播放的部分 */}
-                <div style={{ width: playedWidth + 'px' }} className="progress-played"></div>
+                <div style={{ width: playedWidth }} className="progress-played"></div>
                 {/* 已经下载的资源部分 */}
                 <div className="progress-loaded"></div>
             </div>

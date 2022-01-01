@@ -15,8 +15,10 @@ export default memo(function ShyPlayer() {
       <div className="player-right">
         <SongInfo songName="Burning" singer="Various Artists"></SongInfo>
         <LyricsDisplay></LyricsDisplay>
-        <ProgressBar> </ProgressBar>
-        <OperationBar></OperationBar>
+        <div className='shy-ops'>
+          <ProgressBar> </ProgressBar>
+          <OperationBar></OperationBar>
+        </div>
       </div>
     </div>
   )
