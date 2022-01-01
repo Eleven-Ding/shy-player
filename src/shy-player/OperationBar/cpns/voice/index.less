@@ -1,5 +1,6 @@
 .shy-voice {
     position: relative;
+    margin-top: 200px;
 
     .shy-volume-bar {
         cursor: pointer;
@@ -14,18 +15,27 @@
         align-items: flex-end;
 
         .shy-volume {
-            background-color: rebeccapurple;
+            background-color: rgb(230, 230, 230);
             width: 6px;
             border-radius: 5px;
             height: 100%;
-
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            .shy-real-volume {
+                background-color: thistle;
+                width: 6px;
+                transition: height .1s linear;
+                border-radius: 5px;
+                position: absolute;
+            }
         }
     }
 
     &:hover>.shy-volume-bar {
         height: 50px;
         animation: showVolume .1s linear;
-
     }
 }
 
