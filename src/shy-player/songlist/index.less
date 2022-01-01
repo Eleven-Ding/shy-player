@@ -1,0 +1,46 @@
+.shy-song-list {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    transform: translateY(100%);
+    box-shadow: 0 2px 2px #ccc;
+    height: 310px;
+    user-select: none;
+    overflow: scroll;
+    transition: all .4s cubic-bezier(0.01, 1.35, 0.77, 1.14);
+    .song-list-item {
+        cursor: pointer;
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 10px 6px 2px;
+        color: #ccc;
+        .before-bar {
+            display: flex;
+            .before-block {
+                opacity: 0;
+                margin-right: 6px;
+                width: 3px;
+                display: block;
+                height: 100%;
+                background-color: #55b59a;
+            }
+        }
+
+        &:hover {
+            color: white;
+            background-color: #55b59a;
+        }
+    }
+
+    .active-item {
+        color: white;
+        background-color: #55b59a;
+    }
+
+}
+
+.hidden {
+    height: 0;
+}
