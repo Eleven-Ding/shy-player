@@ -22,3 +22,6 @@ export const CHANGE_CURRENT_TIME = "CHANGE_CURRENT_TIME"
 
 //歌曲的总时长
 export const CHANGE_TOTAL_TINE = "CHANGE_TOTAL_TINE"
+
+//改变播放模式
+export const CHANGE_PLAY_MODEL = "CHANGE_PLAY_MODEL"

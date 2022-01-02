@@ -12,8 +12,11 @@ export interface defualtState {
     //是否正在播放
     isPlaying: boolean;
     //当前是第几首
-    currentSongIndex: number
+    currentSongIndex: number;
+    //播放模式
+    model: number;
 }
+
 
 export interface acitonTypes {
     type: string,

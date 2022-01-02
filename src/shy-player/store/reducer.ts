@@ -18,6 +18,8 @@ export default function reducer(state = rootState, action: acitonTypes): defualt
             return { ...state, currentTime: action.payload }
         case types.CHANGE_TOTAL_TINE:
             return { ...state, totalTime: action.payload }
+        case types.CHANGE_PLAY_MODEL:
+            return { ...state, model: action.payload }
         default:
             return state
     }

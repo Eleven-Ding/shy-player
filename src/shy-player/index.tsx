@@ -13,6 +13,7 @@ import Image from './Image';
 import Songlist from './songlist';
 import TimeAndTotal from './playAndTotalTime'
 import * as types from './store/constant'
+import { MODLES } from './store/state';
 
 import { getSongList, getLyrics, getMp3 } from './untils/network'
 
@@ -21,11 +22,12 @@ export default memo(function ShyPlayer() {
 
   const dispatch = useDispatch()
   const audioRef = useRef()
-  const { currentTime, currentSong, currentSongIndex, songList } = useSelector(state => ({
+  const { currentTime, currentSong, currentSongIndex, songList, model } = useSelector(state => ({
     currentSong: (state as defualtState).currentSong,
     currentSongIndex: (state as defualtState).currentSongIndex,
     songList: (state as defualtState).songList,
     currentTime: (state as defualtState).currentTime,
+    model: (state as defualtState).model,
   }), shallowEqual)
   //切换歌曲
   function changeCurrentSong(song: any) {
@@ -85,6 +87,12 @@ export default memo(function ShyPlayer() {
 
   }
   function HandleMusicEnd() {
+    if (model === MODLES.LOOP) {
+      //直接重新播放
+      (audioRef.current as HTMLMediaElement).currentTime = 0
+      play()
+      return
+    }
     let index = 0
     //判断currentIndex
     if (currentSongIndex === songList.length - 1) {
