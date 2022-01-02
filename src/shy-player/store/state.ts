@@ -1,8 +1,8 @@
 import { defualtState } from '../types/index'
 
 const state: defualtState = {
-    currentTime: 10,
-    totalTime: 100,
+    currentTime: 0,
+    totalTime: 1,
     currentSong: null,//当前歌曲
     songList: [],//歌单
     hiddenSongList: false,//

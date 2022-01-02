@@ -2,22 +2,29 @@
  * 进度条组件
  */
 import { memo, useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { defualtState } from '../types/index'
 import './index.less'
+//是否在拖动
+let isDraping = false
+//是否点击
+let isClick = false;
+
 export interface ProgressBarProps {
-    //当前播放到的时间
-    //总的时间
-    //已经加载了多少的时间
+    changeCurrentTime: (currentTime: number) => void
 }
-export default memo(function ProgeressBar(props: ProgressBarProps) {
+export default memo(function ProgeressBar({ changeCurrentTime }: ProgressBarProps) {
     const [playedWidth, setPlayedWidth] = useState<string>('0%')
-    // const { currentTiem, totalTime } = useSelector(state => ({
-    //     currentTiem: (state as defualtState).currentTime,
-    //     totalTime: (state as defualtState).totalTime
-    // }))
+    const { currentTiem, totalTime } = useSelector(state => ({
+        currentTiem: (state as defualtState).currentTime,
+        totalTime: (state as defualtState).totalTime
+    }), shallowEqual)
     const progressRef = useRef()
+    const widthRef = useRef(playedWidth)
     const handleProgressBarMouseDown = (event) => {
+        isClick = true
+        isDraping = true
+
         let target = event.target
         let startX = event.clientX
         if (target.className !== 'progress-bar-wrap') {
@@ -28,14 +35,12 @@ export default memo(function ProgeressBar(props: ProgressBarProps) {
         setPlayedWidth(_ => {
             return event.nativeEvent.offsetX / barWidth * 100 + '%'
         })
-        function mouseMove(event) {
+        window.onmousemove = function mouseMove(event) {
             //滑动过程中，鼠标到左边屏幕的距离
             const slideX = event.clientX;
             //滚动组件距离屏幕的的位置
             const progressLeft = target.getBoundingClientRect().left;
             const progressRight = progressLeft + target.offsetWidth
-            
-            //只有在滑动条内 才可以进行滑动，超出不做任何处理
             if (slideX <= progressRight && slideX >= progressLeft) {
                 setPlayedWidth(playedWidth => {
                     return (slideX - startX + barWidth / 100 * Number(((playedWidth.slice(0, playedWidth.length - 1))))) / barWidth * 100 + '%'
@@ -43,12 +48,21 @@ export default memo(function ProgeressBar(props: ProgressBarProps) {
                 startX = slideX
             }
         }
-        window.addEventListener("mousemove", mouseMove)
-        window.addEventListener("mouseup", function () {
-            window.removeEventListener("mousemove", mouseMove)
-        })
     }
-
+    useEffect(() => {
+        window.onmouseup = function () {
+            if (!isClick) return
+            window.onmousemove = null;
+            isDraping = false
+            
+            changeCurrentTime(Number(playedWidth.slice(0, playedWidth.length - 1)) / 100 * totalTime / 1000)
+            isClick = false
+        }
+    }, [playedWidth])
+    useEffect(() => {
+        
+        !isDraping && setPlayedWidth(currentTiem / totalTime * 100 + '%')
+    }, [currentTiem])
     return (
         <div id="test" ref={progressRef} className="progress-bar-wrap" onMouseDown={handleProgressBarMouseDown}>
             <div className="progress-bar" >
