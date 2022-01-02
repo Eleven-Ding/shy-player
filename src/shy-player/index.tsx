@@ -14,9 +14,11 @@ import Songlist from './songlist';
 import TimeAndTotal from './playAndTotalTime'
 import * as types from './store/constant'
 import { MODLES } from './store/state';
-
+import { parseLyric } from './untils/format';
 import { getSongList, getLyrics, getMp3 } from './untils/network'
 
+
+//第一次进入不用自动播放
 let isFirst = true;
 export default memo(function ShyPlayer() {
 
@@ -45,11 +47,14 @@ export default memo(function ShyPlayer() {
     (audioRef.current as HTMLMediaElement).pause()
   }, [])
 
-
   useEffect(() => {
     if (currentSong)
       getLyrics(currentSong.id).then(res => {
         // console.log(res.data.lrc.lyric);
+        dispatch({
+          type: types.CHANGE_LIRYCS,
+          payload: parseLyric(res.data.lrc.lyric)
+        })
       })
   }, [currentSong])
   useEffect(() => {
@@ -62,7 +67,6 @@ export default memo(function ShyPlayer() {
       })
       //当前播放 默认第一首
       changeCurrentSong(songList[0])
-      //获取歌词
     })
   }, [])
   function handleTimeUpdate(event) {
@@ -93,6 +97,7 @@ export default memo(function ShyPlayer() {
       play()
       return
     }
+    //判断下一首音乐的位置
     let index = 0
     //判断currentIndex
     if (currentSongIndex === songList.length - 1) {
@@ -112,7 +117,6 @@ export default memo(function ShyPlayer() {
     })
   }
   const changeCurrentTime = useCallback((currentTime) => {
-
     if (audioRef.current) {
       (audioRef.current as HTMLMediaElement).currentTime = currentTime
     }

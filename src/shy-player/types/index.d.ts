@@ -15,6 +15,8 @@ export interface defualtState {
     currentSongIndex: number;
     //播放模式
     model: number;
+    //歌词
+    lyrics: Array<{ time: number, content: string }>
 }
 
 

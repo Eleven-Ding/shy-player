@@ -2,14 +2,13 @@
  * 进度条组件
  */
 import { memo, useState, useRef, useEffect } from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { defualtState } from '../types/index'
 import './index.less'
 //是否在拖动
 let isDraping = false
 //是否点击
 let isClick = false;
-
 export interface ProgressBarProps {
     changeCurrentTime: (currentTime: number) => void
 }

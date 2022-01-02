@@ -11,7 +11,8 @@ const state: defualtState = {
     hiddenSongList: false,//
     isPlaying: false,//默认没有播放
     currentSongIndex: 0,
-    model: MODLES.INORDER
+    model: MODLES.INORDER,
+    lyrics:[{time:0,content:"shy-player"}]
 }
 
 export default state

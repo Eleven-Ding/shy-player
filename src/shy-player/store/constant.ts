@@ -25,3 +25,6 @@ export const CHANGE_TOTAL_TINE = "CHANGE_TOTAL_TINE"
 
 //改变播放模式
 export const CHANGE_PLAY_MODEL = "CHANGE_PLAY_MODEL"
+
+//切换歌词
+export const CHANGE_LIRYCS = "CHANGE_LIRYCS"
