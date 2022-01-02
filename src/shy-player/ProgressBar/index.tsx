@@ -32,9 +32,8 @@ export default memo(function ProgeressBar(props: ProgressBarProps) {
             //滑动过程中，鼠标到左边屏幕的距离
             const slideX = event.clientX;
             //滚动组件距离屏幕的的位置
-            const progressLeft = target.offsetLeft;
+            const progressLeft = target.getBoundingClientRect().left;
             const progressRight = progressLeft + target.offsetWidth
-            console.log(progressLeft,progressRight,slideX);
             
             //只有在滑动条内 才可以进行滑动，超出不做任何处理
             if (slideX <= progressRight && slideX >= progressLeft) {
