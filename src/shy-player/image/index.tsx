@@ -28,12 +28,12 @@ export default memo(function SongImage({ src, alt = "图片加载失败", play, 
         })
     }, [currentSong])
     useEffect(() => {
-
         if (isPlaying) {
-            isFirst && pause()
-        } else {
             isFirst && play()
+        } else {
+            isFirst && pause()
         }
+        isFirst = true
     }, [isPlaying])
     const dispatch = useDispatch()
     function handleIconClick() {

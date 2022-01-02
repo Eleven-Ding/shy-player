@@ -33,6 +33,7 @@ export default memo(function ShyPlayer() {
       type: types.CHANGE_CURRENT_SONG,
       payload: song
     })
+    //第一次就不自动播放了
   }
 
   const play = useCallback(function () {
@@ -63,9 +64,7 @@ export default memo(function ShyPlayer() {
     })
   }, [])
   function handleTimeUpdate(event) {
-    
     const currentTime = event.target.currentTime * 1000
-    
     dispatch({
       type: types.CHANGE_CURRENT_TIME,
       payload: currentTime
@@ -77,9 +76,15 @@ export default memo(function ShyPlayer() {
       type: types.CHANGE_TOTAL_TINE,
       payload: (audioRef.current as HTMLMediaElement).duration * 1000
     })
+    !isFirst && dispatch({
+      type: types.CHANLE_IS_PLAYING,
+      payload: true
+    })
+    isFirst = false
+
+
   }
   function HandleMusicEnd() {
-    isFirst = false
     let index = 0
     //判断currentIndex
     if (currentSongIndex === songList.length - 1) {
@@ -99,10 +104,15 @@ export default memo(function ShyPlayer() {
     })
   }
   const changeCurrentTime = useCallback((currentTime) => {
-    
+
     if (audioRef.current) {
-      (audioRef.current as HTMLMediaElement).currentTime = currentTime 
+      (audioRef.current as HTMLMediaElement).currentTime = currentTime
     }
+    //在这里进行播放
+    dispatch({
+      type: types.CHANLE_IS_PLAYING,
+      payload: true
+    })
   }, [])
   return (
     <div className="shy-player">
@@ -120,7 +130,7 @@ export default memo(function ShyPlayer() {
       </div>
       <Songlist></Songlist>
 
-      {currentSong && <audio  ref={audioRef} onEnded={HandleMusicEnd} onCanPlay={handleAudioOnCanplay} onTimeUpdate={handleTimeUpdate} src={getMp3(currentSong.id)} ></audio>}
+      {currentSong && <audio ref={audioRef} onEnded={HandleMusicEnd} onCanPlay={handleAudioOnCanplay} onTimeUpdate={handleTimeUpdate} src={getMp3(currentSong.id)} ></audio>}
     </div>
   )
 })
