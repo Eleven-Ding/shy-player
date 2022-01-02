@@ -24,7 +24,7 @@ export default memo(function ShyPlayer() {
 
   const dispatch = useDispatch()
   const audioRef = useRef()
-  const { currentTime, currentSong, currentSongIndex, songList, model } = useSelector(state => ({
+  const { currentSong, currentSongIndex, songList, model } = useSelector(state => ({
     currentSong: (state as defualtState).currentSong,
     currentSongIndex: (state as defualtState).currentSongIndex,
     songList: (state as defualtState).songList,
@@ -39,7 +39,6 @@ export default memo(function ShyPlayer() {
     })
     //第一次就不自动播放了
   }
-
   const play = useCallback(function () {
     (audioRef.current as HTMLMediaElement).play()
   }, [])

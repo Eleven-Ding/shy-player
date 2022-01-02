@@ -17,13 +17,12 @@ export default memo(function LyricsDisplay() {
           setCurrentLyric(item.content)
           //根据currentTime找
           //找currentTime 大于了多少了 
-          let j = 0
-          for (; currentTime > lyrics[j].time; j++);
-
-          setCurrentPosition((j-2) * 17)
         }
         break
       }
+      let j = 0
+      for (; currentTime > lyrics[j].time; j++);
+      setCurrentPosition((j-2) * 17)
     }
   }, [currentTime])
   return (
