@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import './index.less'
 export interface SongInfoProps {
   //歌曲名字
   songName: string;
@@ -7,8 +8,9 @@ export interface SongInfoProps {
 }
 export default memo(function SongInfo({ songName, singer }: SongInfoProps) {
   return (
-    <div>
-      {songName} - {singer}
+    <div className='shy-song-info'>
+      <span>{songName}</span>
+      <span> - {singer}</span>
     </div>
   )
 })
