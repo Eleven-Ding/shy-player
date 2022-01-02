@@ -1,9 +1,8 @@
 > 为了练习react-ts开发做的一些小练习
 
 # 效果视频
-<video id="video" controls preload="none" >
-      <source id="mp4" src=src="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/viode.mov" >
-</video>
+https://user-images.githubusercontent.com/57284325/147868776-425dba6f-caa5-45bf-b8cf-8641ad14c716.mov
+
 
 
 
