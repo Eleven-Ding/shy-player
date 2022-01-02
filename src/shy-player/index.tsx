@@ -122,6 +122,11 @@ export default memo(function ShyPlayer() {
       payload: true
     })
   }, [])
+
+  const handleChangeVolume = useCallback(
+    (volume) => {
+      (audioRef.current as HTMLMediaElement).volume = volume
+    }, [])
   return (
     <div className="shy-player">
       <div className="player-left">
@@ -133,7 +138,7 @@ export default memo(function ShyPlayer() {
         <div className='shy-ops'>
           <ProgressBar changeCurrentTime={changeCurrentTime} ></ProgressBar>
           <TimeAndTotal></TimeAndTotal>
-          <OperationBar></OperationBar>
+          <OperationBar changeVolume={handleChangeVolume}></OperationBar>
         </div>
       </div>
       <Songlist></Songlist>

@@ -1,11 +1,14 @@
 import { memo, useState, useRef } from 'react';
 import './index.less'
 //记录上一次的音量大小
+interface shyVoiceProps {
+    changeVolume: (volume: number) => void
+}
 let tempVolumeSize = 0;
-export default memo(function ShyVoice() {
+export default memo(function ShyVoice({ changeVolume }: shyVoiceProps) {
     //是否关闭声音
     const [silent, closeVoice] = useState(false)
-    const [volumeSize, updateVolumeSize] = useState<number>(50)
+    const [volumeSize, updateVolumeSize] = useState<number>(100)
 
     //关闭声音和打开声音
     function changeSilent() {
@@ -16,6 +19,7 @@ export default memo(function ShyVoice() {
             } else {
                 updateVolumeSize(tempVolumeSize)
             }
+            changeVolume(!silent ? 0 : tempVolumeSize / 100)
             return !silent
         })
     }
@@ -27,6 +31,8 @@ export default memo(function ShyVoice() {
             closeVoice(false)
         }
         //在这里把volume占的比例传出去
+        changeVolume(volume / 100)
+
     }
 
     //处理声音点击事件
@@ -37,7 +43,6 @@ export default memo(function ShyVoice() {
         const currentVolumeHeight = volumeSize * barHeight / 100;
         if (target.className === "shy-real-volume") {
             //点击在真实音条上
-            console.log((currentVolumeHeight - pointY) / barHeight * 100);
             updateVolumeSize(_ => {
                 const volume = (currentVolumeHeight - pointY) / barHeight * 100
                 shouldChangeSilent(volume)
@@ -47,6 +52,8 @@ export default memo(function ShyVoice() {
             updateVolumeSize(_ => {
                 const volume = (barHeight - pointY) / barHeight * 100
                 shouldChangeSilent(volume)
+
+
                 return volume
             })
         }
